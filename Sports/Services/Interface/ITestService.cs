@@ -5,6 +5,6 @@ namespace Sports.Services.Interface
 {
     public interface ITestService
     {
-        Task<bool> AddTest(Test test);
+        Task<bool> Add(Test test);
     }
 }

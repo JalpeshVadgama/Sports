@@ -60,7 +60,7 @@ namespace Sports.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _testService.AddTest(test);
+                await _testService.Add(test);
                 return RedirectToAction(nameof(Index));
             }
             return View(test);
