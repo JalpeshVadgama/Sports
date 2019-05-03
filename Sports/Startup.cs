@@ -11,7 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Sports.Data;
 using Sports.Models;
+using Sports.Services.Implementation;
+using Sports.Services.Interface;
 
 namespace Sports
 {
@@ -47,6 +50,10 @@ namespace Sports
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //dependency injection
+            services.AddScoped<IDbContext>(provider => provider.GetService<SportsContext>());
+            services.AddScoped<ITestService>(provider => provider.GetService<TestService>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
