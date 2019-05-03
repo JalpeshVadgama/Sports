@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sports.Models;
+using System;
+using System.Linq;
 
 namespace Sports.Data
 {
@@ -11,6 +14,23 @@ namespace Sports.Data
             : base(options)
         {
             //nothing here
+        }
+
+        public DbSet<TestType> TestType { get; set; }
+        public DbSet<Test> Test { get; set; }
+
+        protected static void SeedEnumValues<T, TEnum>(EntityTypeBuilder entity, Func<TEnum, T> converter)
+        {
+            Enum.GetValues(typeof(TEnum))
+                .Cast<object>()
+                .Select(value => converter((TEnum)value)).ToList()
+                .ForEach(instance => entity.HasData(instance));
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            SeedEnumValues<TestType, TestTypeEnum>(modelBuilder.Entity<TestType>(), e => e);
         }
     }
 }
