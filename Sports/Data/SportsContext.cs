@@ -18,6 +18,8 @@ namespace Sports.Data
 
         public DbSet<TestType> TestType { get; set; }
         public DbSet<Test> Test { get; set; }
+        public DbSet<TestDetail> TestDetail { get; set; }
+
 
         protected static void SeedEnumValues<T, TEnum>(EntityTypeBuilder entity, Func<TEnum, T> converter)
         {
