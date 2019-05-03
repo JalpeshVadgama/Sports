@@ -4,8 +4,6 @@ using Sports.Models;
 
 namespace Sports.Data
 {
-
-
     public class SportsContext :IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public SportsContext
@@ -14,6 +12,5 @@ namespace Sports.Data
         {
             //nothing here
         }
-
     }
 }
