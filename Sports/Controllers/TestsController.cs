@@ -21,7 +21,7 @@ namespace Sports.Controllers
         }
 
         // GET: Tests
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             List<Test> tests = new List<Test>();
             return View(tests);

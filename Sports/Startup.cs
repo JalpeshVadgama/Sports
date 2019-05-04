@@ -47,13 +47,13 @@ namespace Sports
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-
+            services.AddScoped<SportsContext>();
+            services.AddScoped<ITestService, TestService>();
+            services.AddScoped<ITestDetailService, TestDetailService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //dependency injection
-            services.AddScoped<IDbContext>(provider => provider.GetService<SportsContext>());
-            services.AddScoped<ITestService>(provider => provider.GetService<TestService>());
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

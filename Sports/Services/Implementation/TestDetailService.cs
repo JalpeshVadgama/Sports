@@ -8,10 +8,10 @@ namespace Sports.Services.Implementation
 {
     public class TestDetailService : ITestDetailService, IDisposable
     {
-        private readonly IDbContext _context;
+        private readonly SportsContext _context;
         private bool _disposed;
 
-        public TestDetailService(IDbContext context)
+        public TestDetailService(SportsContext context)
         {
             _context = context;
         }

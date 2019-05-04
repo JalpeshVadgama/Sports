@@ -8,10 +8,10 @@ namespace Sports.Services.Implementation
 {
     public class TestService : ITestService, IDisposable
     {
-        private readonly IDbContext _context;
+        private readonly SportsContext _context;
         private bool _disposed;
 
-        public TestService(IDbContext context)
+        public TestService(SportsContext context)
         {
             _context = context;
         }
@@ -20,7 +20,7 @@ namespace Sports.Services.Implementation
         {
             try
             {
-                _context.Set<Test>().Add(test);
+                _context.Test.Add(test);
                await _context.SaveChangesAsync();
             }
             catch(Exception)

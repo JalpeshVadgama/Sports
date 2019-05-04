@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Sports.Data
 {
-    public class SportsContext :IdentityDbContext<ApplicationUser, ApplicationRole, string>, IDbContext
+    public class SportsContext :IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public SportsContext
            (DbContextOptions<SportsContext> options)
@@ -21,7 +21,6 @@ namespace Sports.Data
         public DbSet<Test> Test { get; set; }
         public DbSet<TestDetail> TestDetail { get; set; }
 
-        DatabaseFacade IDbContext.Database => throw new NotImplementedException();
 
         protected static void SeedEnumValues<T, TEnum>(EntityTypeBuilder entity, Func<TEnum, T> converter)
         {
