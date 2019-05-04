@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 
 namespace Sports.Services.Interface
 {
-    public interface ITestService
+    public interface IUserService
     {
-        Task<bool> Add(Test test);
-        List<Test> GetAll();
+       Task<IList<ApplicationUser>> GetAllAsync();
     }
 }

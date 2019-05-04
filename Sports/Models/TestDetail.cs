@@ -6,7 +6,6 @@ namespace Sports.Models
 {
     public class TestDetail
     {
-        [Key]
         public int Id { get; set; }
 
         public string UserId { get; set; }

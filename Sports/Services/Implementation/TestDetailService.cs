@@ -16,14 +16,14 @@ namespace Sports.Services.Implementation
             _context = context;
         }
 
-        public async Task<bool> Add(TestDetail test)
+        public async Task<bool> Add(TestDetail testDetail)
         {
             try
             {
-                _context.Set<TestDetail>().Add(test);
+                _context.TestDetail.Add(testDetail);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //Write log here
                 return false;

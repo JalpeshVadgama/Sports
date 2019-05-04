@@ -51,6 +51,33 @@ namespace Sports.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Test",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TypeOfTest = table.Column<int>(nullable: false),
+                    TestDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Test", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TestType",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false),
+                    name = table.Column<string>(maxLength: 100, nullable: false),
+                    descritpion = table.Column<string>(maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestType", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -156,6 +183,43 @@ namespace Sports.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TestDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true),
+                    TestId = table.Column<int>(nullable: false),
+                    Distnace = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TestDetail_Test_TestId",
+                        column: x => x.TestId,
+                        principalTable: "Test",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TestDetail_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "TestType",
+                columns: new[] { "id", "descritpion", "name" },
+                values: new object[] { 1, "Cooper Test", "Coopertest" });
+
+            migrationBuilder.InsertData(
+                table: "TestType",
+                columns: new[] { "id", "descritpion", "name" },
+                values: new object[] { 2, "100 Meter Sprint", "HundredMeterSprint" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,6 +258,16 @@ namespace Sports.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestDetail_TestId",
+                table: "TestDetail",
+                column: "TestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestDetail_UserId",
+                table: "TestDetail",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -214,7 +288,16 @@ namespace Sports.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "TestDetail");
+
+            migrationBuilder.DropTable(
+                name: "TestType");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Test");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

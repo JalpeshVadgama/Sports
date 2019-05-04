@@ -50,6 +50,7 @@ namespace Sports
             services.AddScoped<SportsContext>();
             services.AddScoped<ITestService, TestService>();
             services.AddScoped<ITestDetailService, TestDetailService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //dependency injection

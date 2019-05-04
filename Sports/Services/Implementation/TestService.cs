@@ -2,7 +2,9 @@
 using Sports.Models;
 using Sports.Services.Interface;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Sports.Services.Implementation
 {
@@ -15,7 +17,12 @@ namespace Sports.Services.Implementation
         {
             _context = context;
         }
-        
+
+        public List<Test> GetAll()
+        {
+            return _context.Test.ToList();
+        }
+
         public async Task<bool> Add(Test test)
         {
             try
@@ -53,5 +60,7 @@ namespace Sports.Services.Implementation
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+       
     }
 }

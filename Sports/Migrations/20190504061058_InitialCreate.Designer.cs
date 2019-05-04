@@ -10,8 +10,8 @@ using Sports.Data;
 namespace Sports.Migrations
 {
     [DbContext(typeof(SportsContext))]
-    [Migration("20190503175039_AddTestModel")]
-    partial class AddTestModel
+    [Migration("20190504061058_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -203,6 +203,27 @@ namespace Sports.Migrations
                     b.ToTable("Test");
                 });
 
+            modelBuilder.Entity("Sports.Models.TestDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Distnace");
+
+                    b.Property<int>("TestId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TestDetail");
+                });
+
             modelBuilder.Entity("Sports.Models.TestType", b =>
                 {
                     b.Property<int>("id");
@@ -276,6 +297,18 @@ namespace Sports.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Sports.Models.TestDetail", b =>
+                {
+                    b.HasOne("Sports.Models.Test", "Test")
+                        .WithMany()
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Sports.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
