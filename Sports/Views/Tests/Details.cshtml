@@ -1,30 +1,47 @@
-﻿@model Sports.Models.Test
+﻿@model Sports.Models.DetailTestViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details of Test";
 }
+    <div>
+        <h1 style="text-transform:uppercase">  @Html.DisplayFor(model => model.TypeOfTest)    @Html.DisplayFor(model => model.TestDate)</h1>
+        <br />
+        <h2><a class="nav-link text-dark" asp-area="" asp-route-id="@Model.Id" asp-controller="TestDetails" asp-action="Create">Add new Athlete to Test </a></h2>
+        <br />
+    </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Users
+            </th>
+            <th>
+                Distance(Meter)
+            </th>
+            <th>
+                Fitness Ranking
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TestDetails)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Distnace)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FitnessRanking)
+                </td>
+                <td>
+                    <a asp-controller="TestDetails" asp-action="Edit" asp-route-id="@item.TestDetailId">Edit this record</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-<h1>Details</h1>
-
-<div>
-    <h4>Test</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeOfTest)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeOfTest)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TestDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TestDate)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

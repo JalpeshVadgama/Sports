@@ -8,5 +8,6 @@ namespace Sports.Services.Interface
     {
         Task<bool> Add(Test test);
         List<TestViewModel> GetAll();
+        DetailTestViewModel GetDetailsOfTest(int testId);
     }
 }

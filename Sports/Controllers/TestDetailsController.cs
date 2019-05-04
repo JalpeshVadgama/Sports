@@ -21,35 +21,6 @@ namespace Sports.Controllers
             _testService = testService;
         }
 
-        // GET: TestDetails
-        public IActionResult Index()
-        {
-            List<TestDetail> testDetails = new List<TestDetail>();
-            //var sportsContext = _context.TestDetail.Include(t => t.ApplicationUser).Include(t => t.Test);
-            //return View(await sportsContext.ToListAsync());
-            return View(testDetails);
-        }
-
-        //// GET: TestDetails/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var testDetail = await _context.TestDetail
-        //        .Include(t => t.ApplicationUser)
-        //        .Include(t => t.Test)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (testDetail == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(testDetail);
-        //}
-
         // GET: TestDetails/Create
         public async Task<IActionResult> Create(int? id)
         {
@@ -70,7 +41,7 @@ namespace Sports.Controllers
             {
                 testDetail.TestId = (int)id;
                 await _testDetailService.Add(testDetail);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Tests", new { @id = id });
             }
             var users = await _userService.GetAllAsync();
             ViewData["UserId"] = new SelectList(users, "Id", "UserName");
@@ -121,7 +92,7 @@ namespace Sports.Controllers
                 {
                     return View(testDetail);
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
             }
           
             return View(testDetail);
@@ -156,11 +127,6 @@ namespace Sports.Controllers
         //    _context.TestDetail.Remove(testDetail);
         //    await _context.SaveChangesAsync();
         //    return RedirectToAction(nameof(Index));
-        //}
-
-        //private bool TestDetailExists(int id)
-        //{
-        //    return _context.TestDetail.Any(e => e.Id == id);
         //}
     }
 }

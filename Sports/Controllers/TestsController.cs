@@ -23,22 +23,16 @@ namespace Sports.Controllers
         }
 
         //// GET: Tests/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var test = await _context.Test
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (test == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(test);
-        //}
+            var testDetails = _testService.GetDetailsOfTest((int)id);
+            return View(testDetails);
+        }
 
         // GET: Tests/Create
         public IActionResult Create()

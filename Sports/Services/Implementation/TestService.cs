@@ -18,6 +18,30 @@ namespace Sports.Services.Implementation
             _context = context;
         }
 
+        public DetailTestViewModel GetDetailsOfTest(int testId)
+        {
+            var detailsOfTest = (from t in _context.Test
+                                 where t.Id == testId
+                                 select new DetailTestViewModel
+                                 {
+                                     Id = t.Id,
+                                     TestDate = t.TestDate,
+                                     TypeOfTest = t.TypeOfTest,
+                                     TestDetails = (from td in _context.TestDetail
+                                                    join
+                                                    u in _context.Users on td.UserId equals u.Id
+                                                    where td.TestId == testId
+                                                    select new TestDetailViewModel
+                                                    {
+                                                        TestDetailId = td.Id,
+                                                        Distnace = td.Distnace,
+                                                        User = u.UserName,
+                                                        FitnessRanking = GetFitnessReanking(td.Distnace)
+                                                    }).ToList()
+                                 }).FirstOrDefault();
+            return detailsOfTest;
+        }
+
         public List<TestViewModel> GetAll()
         {
             var result = (from t in _context.Test
@@ -36,9 +60,9 @@ namespace Sports.Services.Implementation
             try
             {
                 _context.Test.Add(test);
-               await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //Write log here
                 return false;
@@ -69,6 +93,26 @@ namespace Sports.Services.Implementation
             GC.SuppressFinalize(this);
         }
 
-       
+        private string GetFitnessReanking(double distance)
+        {
+        
+                if (distance <= 1000)
+                {
+                  return  "Below Average";
+                }
+                else if (distance > 1000 && distance <= 2000)
+                {
+                   return "Average";
+                }
+                else if (distance > 2000 && distance <= 3500)
+                {
+                    return "Good";
+                }
+                else if (distance > 3000)
+                {
+                    return "Very Good";
+                }
+            return string.Empty;
+        }
     }
 }

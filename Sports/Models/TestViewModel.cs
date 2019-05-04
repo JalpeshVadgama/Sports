@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System;
 
 namespace Sports.Models
 {
-    public class Test
+    public class TestViewModel
     {
         public int Id { get; set; }
-        [Required]
+        [DisplayName("Number of Participants")]
+        public int NoOfParticipants { get; set; }
         [DisplayName("Test Type")]
         public TestTypeEnum TypeOfTest { get; set; }
-
         [DisplayName("Date")]
         public DateTime TestDate { get; set; }
     }
