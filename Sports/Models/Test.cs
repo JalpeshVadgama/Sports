@@ -8,10 +8,21 @@ namespace Sports.Models
     {
         public int Id { get; set; }
         [Required]
-        [Description("Type Of Test")]
+        [DisplayName("Test Type")]
         public TestTypeEnum TypeOfTest { get; set; }
 
-        [Description("Test Date")]
+        [DisplayName("Date")]
+        public DateTime TestDate { get; set; }
+    }
+
+    public class TestViewModel
+    {
+        public int Id { get; set; }
+        [DisplayName("Number of Participants")]
+        public int NoOfParticipants { get; set; }
+        [DisplayName("Test Type")]
+        public TestTypeEnum TypeOfTest { get; set; }
+        [DisplayName("Date")]
         public DateTime TestDate { get; set; }
     }
 

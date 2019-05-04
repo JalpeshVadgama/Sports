@@ -18,9 +18,17 @@ namespace Sports.Services.Implementation
             _context = context;
         }
 
-        public List<Test> GetAll()
+        public List<TestViewModel> GetAll()
         {
-            return _context.Test.ToList();
+            var result = (from t in _context.Test
+                          select new TestViewModel
+                          {
+                              Id = t.Id,
+                              TestDate = t.TestDate,
+                              TypeOfTest = t.TypeOfTest,
+                              NoOfParticipants = _context.TestDetail.Count(td => td.TestId == t.Id)
+                          }).ToList();
+            return result;
         }
 
         public async Task<bool> Add(Test test)

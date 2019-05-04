@@ -1,22 +1,23 @@
-﻿@model IEnumerable<Sports.Models.Test>
+﻿@model IEnumerable<Sports.Models.TestViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1><a asp-action="Create">ADD NEW TEST</a></h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TypeOfTest)
+                @Html.DisplayNameFor(model => model.TestDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TestDate)
+                @Html.DisplayNameFor(model => model.NoOfParticipants)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeOfTest)
             </th>
             <th></th>
         </tr>
@@ -25,15 +26,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TypeOfTest)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.TestDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.NoOfParticipants)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfTest)
+            </td>
+
+
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
             </td>
         </tr>
 }

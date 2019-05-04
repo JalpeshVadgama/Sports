@@ -18,7 +18,7 @@ namespace Sports.Controllers
         // GET: Tests
         public IActionResult Index()
         {
-            List<Test> tests = new List<Test>();
+            var tests = _testService.GetAll();
             return View(tests);
         }
 
