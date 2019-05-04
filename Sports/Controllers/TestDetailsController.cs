@@ -63,7 +63,7 @@ namespace Sports.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int? id, [Bind("Id,UserId,TestId,Distnace")] TestDetail testDetail)
+        public async Task<IActionResult> Create(int? id, [Bind("UserId,TestId,Distnace")] TestDetail testDetail)
         {
             if (ModelState.IsValid)
             {
