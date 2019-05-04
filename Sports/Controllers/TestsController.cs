@@ -6,6 +6,7 @@ using Sports.Services.Interface;
 
 namespace Sports.Controllers
 {
+   
     public class TestsController : Controller
     {
         private readonly ITestService _testService;
@@ -21,6 +22,7 @@ namespace Sports.Controllers
             var tests = _testService.GetAll();
             return View(tests);
         }
+
 
         //// GET: Tests/Details/5
         public IActionResult Details(int? id)
@@ -40,6 +42,8 @@ namespace Sports.Controllers
             return View();
         }
 
+
+        //[Authorize(Roles = "Coach")]
         // POST: Tests/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -55,6 +59,7 @@ namespace Sports.Controllers
             return View(test);
         }
 
+        //[Authorize(Roles = "Coach")]
         // GET: TestDetails/Delete/5
         public IActionResult Delete(int? id)
         {

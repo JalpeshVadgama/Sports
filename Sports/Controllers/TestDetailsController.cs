@@ -7,6 +7,9 @@ using Sports.Services.Interface;
 
 namespace Sports.Controllers
 {
+    /// <summary>
+    /// Controller to show Add,Edit and Delete ahthlete 
+    /// </summary>
     public class TestDetailsController : Controller
     {
         private readonly ITestDetailService _testDetailService;
@@ -20,7 +23,11 @@ namespace Sports.Controllers
             _testService = testService;
         }
 
-        // GET: TestDetails/Create
+        /// <summary>
+        /// A action result to create athelete for a test
+        /// </summary>
+        /// <param name="id">Test idfor which to create athelete</param>
+        /// <returns>View of create</returns>
         public async Task<IActionResult> Create(int? id)
         {
             var users = await _userService.GetAllAsync();
@@ -29,9 +36,13 @@ namespace Sports.Controllers
             return View();
         }
 
-        // POST: TestDetails/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //  [Authorize(Roles = "Coach")]
+        /// <summary>
+        /// A post method to create athlete for the test
+        /// </summary>
+        /// <param name="id">Test for which mehtod need to be created</param>
+        /// <param name="testDetail">Details of Athelete</param>
+        /// <returns>Redirect back to details view of test</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int? id, [Bind("UserId,TestId,Distnace")] TestDetail testDetail)
@@ -47,7 +58,12 @@ namespace Sports.Controllers
             return View(testDetail);
         }
 
-        // GET: TestDetails/Edit/5
+        /// <summary>
+        /// A method to edit Athelete details for a test
+        /// </summary>
+        /// <param name="id">Id of Athelete details</param>
+        /// <returns>return view of edit </returns>
+        //  [Authorize(Roles = "Coach")]
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.returnUrl = Request.Headers["Referer"].ToString();
@@ -68,9 +84,14 @@ namespace Sports.Controllers
             return View(testDetail);
         }
 
-        // POST: TestDetails/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// A post method to edit athelete details for a test
+        /// </summary>
+        /// <param name="id">Id for which athelte details need to be updated</param>
+        /// <param name="returnUrl">A url to return back on previous page</param>
+        /// <param name="testDetail">Details of ahtelete</param>
+        /// <returns>return to previous url</returns>
+        //  [Authorize(Roles = "Coach")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, string returnUrl, [Bind("Id,UserId,TestId,Distnace")] TestDetail testDetail)
@@ -96,8 +117,13 @@ namespace Sports.Controllers
             return View(testDetail);
         }
 
-        // GET: TestDetails/Delete/5
-        
+         /// <summary>
+         /// A method to delete athelte result for a test
+         /// </summary>
+         /// <param name="id">Id of athlete details</param>
+         /// <param name="testId">Id for the test</param>
+         /// <returns>redirect back to details page of test</returns>
+        //  [Authorize(Roles = "Coach")]
         public async Task<IActionResult> Delete(int id, int testId)
         {
             var returnUrl = Request.Headers["Referer"].ToString();
