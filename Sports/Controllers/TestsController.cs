@@ -55,5 +55,15 @@ namespace Sports.Controllers
             return View(test);
         }
 
+        // GET: TestDetails/Delete/5
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            _testService.Delete((int)id);
+            return RedirectToAction("Index", "Tests");
+        }
     }
 }

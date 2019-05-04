@@ -17,6 +17,24 @@ namespace Sports.Services.Implementation
         {
             _context = context;
         }
+        public bool Delete(int testId)
+        {
+            try
+            {
+                var testDetails = (from td in _context.TestDetail where td.TestId == testId select td).ToList();
+                _context.TestDetail.RemoveRange(testDetails);
+
+                var test = _context.Test.Find(testId);
+                _context.Test.Remove(test);
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
 
         public DetailTestViewModel GetDetailsOfTest(int testId)
         {
@@ -114,5 +132,7 @@ namespace Sports.Services.Implementation
                 }
             return string.Empty;
         }
+
+       
     }
 }
