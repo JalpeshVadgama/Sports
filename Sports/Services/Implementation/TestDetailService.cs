@@ -33,9 +33,19 @@ namespace Sports.Services.Implementation
 
        
 
-        public Task<bool> Update(TestDetail testDetail)
+        public async Task<bool> Update(TestDetail testDetail)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.TestDetail.Update (testDetail);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                //Write log here
+                return false;
+            }
+            return true;
         }
 
         public Task<bool> Delete(int testDetailId)
@@ -43,9 +53,9 @@ namespace Sports.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<TestDetail> Get(int testDetailId)
+        public async  Task<TestDetail> Get(int testDetailId)
         {
-            throw new NotImplementedException();
+            return await _context.TestDetail.FindAsync(testDetailId);
         }
 
         /// <summary>
