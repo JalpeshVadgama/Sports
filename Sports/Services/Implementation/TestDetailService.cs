@@ -48,9 +48,19 @@ namespace Sports.Services.Implementation
             return true;
         }
 
-        public Task<bool> Delete(int testDetailId)
+        public async Task<bool> Delete(int testDetailId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var testDetail = await _context.TestDetail.FindAsync(testDetailId);
+                _context.TestDetail.Remove(testDetail);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
         public async  Task<TestDetail> Get(int testDetailId)
