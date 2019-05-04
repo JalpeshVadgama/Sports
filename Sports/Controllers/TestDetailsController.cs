@@ -51,6 +51,7 @@ namespace Sports.Controllers
         // GET: TestDetails/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.returnUrl = Request.Headers["Referer"].ToString();
             if (id == null)
             {
                 return NotFound();
@@ -73,7 +74,7 @@ namespace Sports.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,TestId,Distnace")] TestDetail testDetail)
+        public async Task<IActionResult> Edit(int id,string returnUrl, [Bind("Id,UserId,TestId,Distnace")] TestDetail testDetail)
         {
             if (id != testDetail.Id)
             {
@@ -85,14 +86,12 @@ namespace Sports.Controllers
                 try
                 {
                     await _testDetailService.Update(testDetail);
-                    //_context.Update(testDetail);
-                    //await _context.SaveChangesAsync();
                 }
                 catch (Exception)
                 {
                     return View(testDetail);
                 }
-                //return RedirectToAction(nameof(Index));
+                return Redirect(returnUrl);
             }
           
             return View(testDetail);
