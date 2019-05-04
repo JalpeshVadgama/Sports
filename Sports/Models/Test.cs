@@ -8,7 +8,10 @@ namespace Sports.Models
     {
         public int Id { get; set; }
         [Required]
+        [Description("Type Of Test")]
         public TestTypeEnum TypeOfTest { get; set; }
+
+        [Description("Test Date")]
         public DateTime TestDate { get; set; }
     }
 
